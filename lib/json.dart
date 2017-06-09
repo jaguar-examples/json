@@ -1,28 +1,36 @@
 // Copyright (c) 2017, teja. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'package:jaguar/jaguar.dart';
-import 'package:jaguar/interceptors.dart';
 
 @Api(path: '/api')
-@WrapEncodeMapToJson()
 class ExampleApi {
   @Get(path: '/hello')
-  Map sayHello() => {
-    "greeting": "Hello",
-  };
+
+  /// This route shows how to write JSON response in jaguar.dart.
+  /// [Response] class has a static constructor method called [json]. This
+  /// method encodes the given Dart built-in object to JSON string
+  Response<String> sayHello(Context ctx) => Response.json({
+        "greeting": "Hello",
+      });
 
   @Post(path: '/math')
-  @WrapDecodeJsonMap()
-  Map math(@Input(DecodeJsonMap) Map body) {
-    int a = body['a'];
-    int b = body['b'];
 
-    return {
+  /// This route shows how to read JSON request and write JSON response in
+  /// jaguar.dart.
+  Future<Response<String>> math(Context ctx) async {
+    /// [bodyAsJsonMap] method on [Request] object can be used to decode JSON
+    /// body of the request into Dart built-in object
+    final Map body = await ctx.req.bodyAsJsonMap();
+    final int a = body['a'];
+    final int b = body['b'];
+
+    return Response.json({
       'addition': a + b,
       'subtraction': a - b,
       'multiplication': a * b,
       'division': a ~/ b,
-    };
+    });
   }
 }
