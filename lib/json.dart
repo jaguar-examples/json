@@ -6,19 +6,18 @@ import 'package:jaguar/jaguar.dart';
 
 @Api(path: '/api')
 class ExampleApi {
-  @Get(path: '/hello')
-
   /// This route shows how to write JSON response in jaguar.dart.
   /// [Response] class has a static constructor method called [json]. This
   /// method encodes the given Dart built-in object to JSON string
+  @Get(path: '/hello')
   Response<String> sayHello(Context ctx) => Response.json({
         "greeting": "Hello",
       });
 
-  @Post(path: '/math')
 
   /// This route shows how to read JSON request and write JSON response in
   /// jaguar.dart.
+  @Post(path: '/math')
   Future<Response<String>> math(Context ctx) async {
     /// [bodyAsJsonMap] method on [Request] object can be used to decode JSON
     /// body of the request into Dart built-in object
