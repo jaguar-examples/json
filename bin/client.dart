@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 const String kHostname = 'localhost';
 
-const int kPort = 8080;
+const int kPort = 10001;
 
 final http.Client _client = new http.Client();
 
@@ -18,22 +18,27 @@ Future<Null> printHttpClientResponse(http.Response resp) async {
   print('=========================');
 }
 
-Future<Null> execHello() async {
-  String url = "http://$kHostname:$kPort/api/hello";
-  http.Response resp = await _client.get(url);
-
+Future<Null> all() async {
+  http.Response resp = await _client.get("http://$kHostname:$kPort/api/book");
   await printHttpClientResponse(resp);
 }
 
-Future<Null> execMath() async {
-  String url = "http://$kHostname:$kPort/api/math";
-  http.Response resp = await _client.post(url, body: '{"a": 10, "b": 5}');
+Future<Null> add() async {
+  http.Response resp = await _client.post("http://$kHostname:$kPort/api/book",
+      body:
+          '{"id":"3","name":"Da vinci code","author":"Dan Brown","price":120.0}');
+  await printHttpClientResponse(resp);
+}
 
+Future<Null> delete() async {
+  http.Response resp =
+      await _client.delete("http://$kHostname:$kPort/api/book/3");
   await printHttpClientResponse(resp);
 }
 
 main() async {
-  await execHello();
-  await execMath();
+  await all();
+  await add();
+  await delete();
   exit(0);
 }

@@ -1,35 +1,50 @@
-// Copyright (c) 2017, teja. All rights reserved. Use of this source code
-// is governed by a BSD-style license that can be found in the LICENSE file.
-
 import 'dart:async';
 import 'package:jaguar/jaguar.dart';
 
-@Api(path: '/api')
-class ExampleApi {
-  /// This route shows how to write JSON response in jaguar.dart.
-  /// [Response] class has a static constructor method called [json]. This
-  /// method encodes the given Dart built-in object to JSON string
-  @Get(path: '/hello')
-  Response<String> sayHello(Context ctx) => Response.json({
-        "greeting": "Hello",
-      });
+final List<Book> books = <Book>[
+  new Book(id: '1', name: 'Harry Potter 1', author: 'JK Rowling', price: 99.50),
+  new Book(id: '1', name: 'LOTR', author: 'JRR Tolkien', price: 49.50),
+];
 
+@Api(path: '/api/book')
+class LibraryApi {
+  /// Returns all books
+  @GetJson()
+  List<Book> getAll(_) => books;
 
-  /// This route shows how to read JSON request and write JSON response in
-  /// jaguar.dart.
-  @Post(path: '/math')
-  Future<Response<String>> math(Context ctx) async {
-    /// [bodyAsJsonMap] method on [Request] object can be used to decode JSON
-    /// body of the request into Dart built-in object
-    final Map body = await ctx.req.bodyAsJsonMap();
-    final int a = body['a'];
-    final int b = body['b'];
-
-    return Response.json({
-      'addition': a + b,
-      'subtraction': a - b,
-      'multiplication': a * b,
-      'division': a ~/ b,
-    });
+  /// Adds new book to library
+  @PostJson()
+  Future<List<Book>> add(Context ctx) async {
+    Map map = await ctx.req.bodyAsJsonMap();
+    books.add(new Book().fromMap(map));
+    return books;
   }
+
+  /// Delete book by id
+  @DeleteJson(path: '/:id')
+  List<Book> delete(Context ctx) =>
+      books..removeWhere((b) => b.id == ctx.pathParams['id']);
+}
+
+class Book {
+  String id;
+
+  String name;
+
+  String author;
+
+  double price;
+
+  Book({this.id, this.name, this.author, this.price});
+
+  void fromMap(Map<String, dynamic> map) => this
+    ..id = map['id']
+    ..name = map['name']
+    ..author = map['author']
+    ..price = map['price'];
+
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'name': name, 'author': author, 'price': price};
+
+  String toString() => toJson().toString();
 }

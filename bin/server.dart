@@ -6,9 +6,7 @@ import 'package:jaguar_reflect/jaguar_reflect.dart';
 import 'package:json/json.dart';
 
 main() async {
-  final api = new ExampleApi();
-
-  final server = new Jaguar();
-  server.addApi(reflectJaguar(api));
+  final server = new Jaguar(port: 10001);
+  server.addApi(reflect(new LibraryApi()));
   await server.serve();
 }
