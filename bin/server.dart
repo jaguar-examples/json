@@ -2,11 +2,18 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'package:jaguar/jaguar.dart';
-import 'package:jaguar_reflect/jaguar_reflect.dart';
 import 'package:json/json.dart';
 
 main() async {
-  final server = new Jaguar(port: 10001);
-  server.addApi(reflect(new LibraryApi()));
-  await server.serve();
+  final server = Jaguar(port: 10000);
+  server.getJson('/langs/:id',
+      (ctx) => languages.firstWhere((b) => b.id == ctx.pathParams['id']));
+  server.getJson('/langs', (_) => languages);
+  server.postJson('/langs', (ctx) async {
+    Language newLang = await ctx.bodyAsJson(convert: Language.fromMap);
+    languages.add(newLang);
+    return languages;
+  });
+  server.log.onRecord.listen(print);
+  await server.serve(logRequests: true);
 }
