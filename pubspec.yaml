@@ -3,7 +3,7 @@ description: Example to demonstrate how to read JSON requests and write JSON res
 version: 2.1.1
 authors:
 - Ravi Teja Gudapati <tejainece@gmail.com>
-homepage: http://jaguar-dart.github.io
+homepage: https://github.com/jaguar-examples/json
 
 environment:
   sdk: '>=2.0.0-dev.55.0 <2.0.0'
@@ -11,6 +11,7 @@ environment:
 dependencies:
   jaguar: ^2.1.8
   jaguar_resty: ^2.5.5
+  http: ^0.11.3
 
 dev_dependencies:
   test: ^1.2.0
