@@ -1,6 +1,6 @@
-name: json
-description: Examples to demonstrate how to implement JSON routes using Jaguar web framework
-version: 0.0.1
+name: jaguar_example_json
+description: Example to demonstrate how to read JSON requests and write JSON responses using Jaguar web framework.
+version: 2.1.1
 authors:
 - Ravi Teja Gudapati <tejainece@gmail.com>
 homepage: http://jaguar-dart.github.io
@@ -13,4 +13,4 @@ dependencies:
   jaguar_resty: ^2.5.5
 
 dev_dependencies:
-  test: ^1.0.0
+  test: ^1.2.0

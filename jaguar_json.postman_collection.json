@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "c29e0a11-c0bb-4d7e-80b3-f193b5f422c2",
+		"name": "jaguar_json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Addition",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"a\": 10,\n\t\"b\": 15\n}"
+				},
+				"url": {
+					"raw": "localhost:10000/addition",
+					"host": [
+						"localhost"
+					],
+					"port": "10000",
+					"path": [
+						"addition"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All operations",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"a\": 15,\n\t\"b\": 10\n}"
+				},
+				"url": {
+					"raw": "localhost:10000/all",
+					"host": [
+						"localhost"
+					],
+					"port": "10000",
+					"path": [
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
