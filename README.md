@@ -31,7 +31,7 @@ In `Controller`s use `GetJson`, `PostJson`, `DeleteJson` and `PutJson` annotatio
 
 ## Client
 
-The example also includes a client to test run the server.
+The example also includes a [client](https://github.com/jaguar-examples/json/blob/master/bin/client.dart) to test run the server.
 
 > $> dart bin/client.dart  
 > 25  
@@ -40,3 +40,5 @@ The example also includes a client to test run the server.
 ## Postman collection
 
 The example also includes a Postman collection to test run the server.
+
+![Postman](https://raw.githubusercontent.com/jaguar-examples/json/master/screenshots/postman.PNG)
